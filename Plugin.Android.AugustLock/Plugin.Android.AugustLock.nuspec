@@ -6,8 +6,8 @@
     <title>August Smart Lock Plugin for Xamarin Android</title>
     <authors>Marcus Lum</authors>
     <owners>Marcus Lum</owners>
-    <licenseUrl>http://github.com/Marcus-L/xamarin-august-ble/LICENSE</licenseUrl>
-    <projectUrl>http://github.com/Marcus-L/xamarin-august-ble</projectUrl>
+    <licenseUrl>https://github.com/Marcus-L/xamarin-august-ble/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Marcus-L/xamarin-august-ble</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Manipulate August Smart Lock devices using Bluetooth LE using this plugin.</description>
     <releaseNotes>Initial release.</releaseNotes>
