@@ -28,7 +28,7 @@ Key Extraction Instuctions: [Link](https://github.com/ethitter/augustctl#configu
 ## Usage
 
 ```csharp
-private static async Task Unlock(string uuid, string key, int keyOffset)
+private static async Task LockOrUnlock(string uuid, string key, int keyOffset)
 {
     var august = new AugustLockDevice(uuid, key, keyOffset);
     if (await august.Connect())
@@ -49,7 +49,7 @@ private static async Task Unlock(string uuid, string key, int keyOffset)
 }
 
 // example invocation
-Unlock("a9fa1c721c1d", "eced208840ba35332c868d291c4162fb", 1);
+LockOrUnlock("a9fa1c721c1d", "eced208840ba35332c868d291c4162fb", 1);
 ```
 
 ## License
