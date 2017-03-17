@@ -52,6 +52,13 @@ private static async Task LockOrUnlock(string uuid, string key, int keyOffset)
 LockOrUnlock("a9fa1c721c1d", "eced208840ba35332c868d291c4162fb", 1);
 ```
 
+If you want to see the debug output, hook up to the Debug EventHandler:
+
+```csharp
+var august = new AugustLockDevice(...);
+august.DebugMessage += (src, msg) => Android.Util.Log.Debug("August", msg);
+```
+
 ## License
 
 [MIT](https://github.com/Marcus-L/xamarin-august-ble/blob/master/LICENSE)
