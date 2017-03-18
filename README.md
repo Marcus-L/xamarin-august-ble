@@ -1,6 +1,6 @@
 # August Smart Lock Plugin for Xamarin Android
 
-Uses Bluetooth LE (via the [Plugin.BLE](https://github.com/xabre/xamarin-bluetooth-le) plugin) to communicate with and manipulate an August Smart Lock. This is a rough port of the [node augustcl library](https://github.com/ethitter/augustctl) from @ethitter.
+Uses Bluetooth LE (via the [Plugin.BLE](https://github.com/xabre/xamarin-bluetooth-le) plugin) to communicate with and manipulate an August Smart Lock. This is a rough port of the [node augustcl library](https://github.com/ethitter/augustctl) from [@ethitter](https://github.com/ethitter).
 
 _This Plugin tested for Android Only!_ It might work on iOS, I haven't tried it but if you have an iOS device and it works, let me know.
 
@@ -57,6 +57,15 @@ If you want to see the debug output, hook up to the Debug EventHandler:
 ```csharp
 var august = new AugustLockDevice(...);
 august.DebugMessage += (src, msg) => Android.Util.Log.Debug("August", msg);
+```
+
+Depending on your phone and lock bluetooth reception (based what times out on the debug output), you may want to tweak the timeouts for scanning/connecting/etc:
+
+```csharp
+var august = new AugustLockDevice(...);
+august.ScanTimeout = 7000; // timeouts are in milliseconds
+august.ConnectTimeout = 7000;
+august.CommandTimeout = 3000;
 ```
 
 ## License

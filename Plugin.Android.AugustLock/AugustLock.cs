@@ -22,12 +22,19 @@ namespace Plugin.Android.AugustLock
         public Guid ID { get; private set; }
         public string OfflineKey { get; private set; }
         public int OfflineKeyOffset { get; private set; }
+        public int ScanTimeout { get; set; }
+        public int ConnectTimeout { get; set; }
+        public int CommandTimeout { get; set; }
 
         // events
         public event EventHandler<string> DebugMessage;
 
         public AugustLockDevice(string id, string offlineKey, int offlineKeyOffset)
         {
+            ScanTimeout = 7000;
+            ConnectTimeout = 7000;
+            CommandTimeout = 3000;
+
             if (id == "0")
             {
                 id = "000000000000";
@@ -61,9 +68,13 @@ namespace Plugin.Android.AugustLock
                     var scanTask = adapter.StartScanningForDevicesAsync(
                         new[] { AUGUST_SERVICE }, device => device.Id == ID || ID.Equals(Guid.Empty), false, tokenSource.Token);
 
-                    if (await Task.WhenAny(scanTask, Task.Delay(5000)) == scanTask)
+                    if (await Task.WhenAny(scanTask, Task.Delay(ScanTimeout)) == scanTask)
                     {
                         await scanTask;
+                    }
+                    else
+                    {
+                        Debug("scan timed out");
                     }
                 }
                 catch (Exception ex)
@@ -85,12 +96,16 @@ namespace Plugin.Android.AugustLock
                 if (augustLock != null)
                 {
                     var connectTask = adapter.ConnectToDeviceAsync(augustLock);
-                    if (await Task.WhenAny(new[] { connectTask, Task.Delay(5000) }) == connectTask)
+                    if (await Task.WhenAny(new[] { connectTask, Task.Delay(ConnectTimeout) }) == connectTask)
                     {
                         await connectTask; // in case the task exceptioned out to throw the exception
                         await SetupSessions(augustLock);
                         await PerformHandshake();
                         return true;
+                    }
+                    else
+                    {
+                        Debug("connect (after successful scan) timed out");
                     }
                 }
                 else
@@ -117,6 +132,7 @@ namespace Plugin.Android.AugustLock
 
             secure_lock_session = new SecureLockSession(this)
             {
+                CommandTimeout = CommandTimeout,
                 OfflineKeyOffset = (byte)OfflineKeyOffset,
                 ReadCharacteristic = await service.GetCharacteristicAsync(new Guid("bd4ac614-0b45-11e3-8ffd-0800200c9a66")),
                 WriteCharacteristic = await service.GetCharacteristicAsync(new Guid("bd4ac613-0b45-11e3-8ffd-0800200c9a66"))
@@ -124,6 +140,7 @@ namespace Plugin.Android.AugustLock
             secure_lock_session.SetKey(StringToByteArray(OfflineKey));
             lock_session = new LockSession(this)
             {
+                CommandTimeout = CommandTimeout,
                 ReadCharacteristic = await service.GetCharacteristicAsync(new Guid("bd4ac612-0b45-11e3-8ffd-0800200c9a66")),
                 WriteCharacteristic = await service.GetCharacteristicAsync(new Guid("bd4ac611-0b45-11e3-8ffd-0800200c9a66"))
             };

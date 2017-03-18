@@ -19,9 +19,11 @@ namespace Plugin.Android.AugustLock
 
         public ICharacteristic WriteCharacteristic { get; set; }
         public ICharacteristic ReadCharacteristic { get; set; }
+        public int CommandTimeout { get; set; }
 
         public LockSession(AugustLockDevice parent)
         {
+            CommandTimeout = 3000;
             device = parent;
         }
 
@@ -60,6 +62,7 @@ namespace Plugin.Android.AugustLock
             }
             else
             {
+                device.Debug("read listener startup timeout");
                 throw new Exception("Read listener startup timeout");
             }
         }
@@ -120,22 +123,22 @@ namespace Plugin.Android.AugustLock
             WriteChecksum(command);
             device.Debug("execute command: " + BitConverter.ToString(command));
             var wTask = Write(command);
-            if (await Task.WhenAny(wTask, Task.Delay(2000)) == wTask)
+            if (await Task.WhenAny(wTask, Task.Delay(CommandTimeout)) == wTask)
             {
                 await wTask;
             }
             else
             {
-                throw new Exception("execution timeout");
+                throw new Exception("command execution timeout");
             }
             device.Debug("write successful");
 
             return await Task.Run<byte[]>(() =>
             {
                 // process response
-                if (!readEvent.WaitOne(TimeSpan.FromSeconds(5)))
+                if (!readEvent.WaitOne(CommandTimeout))
                 {
-                    throw new Exception("Write response timeout");
+                    throw new Exception("command execute response timeout");
                 }
                 byte[] data = new byte[readData.Length];
                 readData.CopyTo(data, 0);
