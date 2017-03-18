@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Plugin.Android.AugustLock</id>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <title>August Smart Lock Plugin for Xamarin Android</title>
     <authors>Marcus Lum</authors>
     <owners>Marcus Lum</owners>
@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/Marcus-L/xamarin-august-ble</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Manipulate August Smart Lock devices using Bluetooth LE using this plugin.</description>
-    <releaseNotes>Initial release.</releaseNotes>
+    <releaseNotes>This release makes the timeouts for Bluetooth LE scanning, connecting to the device and executing the commands for locking, unlocking, status etc. configurable.</releaseNotes>
     <copyright>Copyright © 2017</copyright>
     <tags>xamarin android august lock ble</tags>
     <dependencies>
