@@ -48,7 +48,7 @@ private static async Task LockOrUnlock(string uuid, string key, int keyOffset)
     }
 }
 
-// example invocation
+// example invocation. NOTE: can pass in "0" for the UUID if it is not known
 LockOrUnlock("a9fa1c721c1d", "eced208840ba35332c868d291c4162fb", 1);
 ```
 
@@ -58,6 +58,8 @@ If you want to see the debug output, hook up to the Debug EventHandler:
 var august = new AugustLockDevice(...);
 august.DebugMessage += (src, msg) => Android.Util.Log.Debug("August", msg);
 ```
+
+If you do not know the device's UUID but you do know the key and key offset, you can pass in "0" as the ID to the AugustLockDevice and it will try to use the key & offset provided on _any_ lock it finds. If you output the debug messages you should be able to see the device UUID which you can use in the future to prevent connecting to the wrong lock if you have multiple locks in range. 
 
 Depending on your phone and lock bluetooth reception (based what times out on the debug output), you may want to tweak the timeouts for scanning/connecting/etc:
 
