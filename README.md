@@ -2,7 +2,7 @@
 
 Uses Bluetooth LE (via the [Plugin.BLE](https://github.com/xabre/xamarin-bluetooth-le) plugin) to communicate with and manipulate an August Smart Lock. This is a rough port of the [node augustcl library](https://github.com/ethitter/augustctl) from [@ethitter](https://github.com/ethitter).
 
-_This Plugin tested for Android Only!_ It might work on iOS, I haven't tried it but if you have an iOS device and it works, let me know.
+_This Plugin was tested on Android Only!_ It might work on iOS, I haven't tried it but if you have an iOS device and it works, let me know.
 
 ## Installation
 
@@ -37,7 +37,7 @@ The API operates using offline keys so that no access to the internet by the cal
 1. Have linux tools available. An easy way to have them is to use Git Bash, part of Git. [Download Git](https://git-scm.com/downloads)
 1. Back up the app files, run: `adb backup -f backup.ab -noapk com.august.luna`
 1. Using Git Bash:
-   1. `ls` to the directory of the `backup.ab` file
+   1. `cd` to the directory of the `backup.ab` file
    1. Strip unnecessary data from the file, decompress it, unpack a specific file and parse it. Run: 
       ```shell
       dd if=backup.ab bs=24 skip=1 | openssl zlib -d | tar xv -O apps/com.august.luna/sp/PeripheralInfoCache.xml | grep -ohP  '&quot;[^&]+&quot;:(&quot;)?[^&]+(&quot;)?(?=[,}])'  | sed 's/&quot;/"/g'
