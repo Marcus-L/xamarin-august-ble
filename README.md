@@ -59,6 +59,8 @@ var august = new AugustLockDevice(...);
 august.DebugMessage += (src, msg) => Android.Util.Log.Debug("August", msg);
 ```
 
+Note: If you do not know the device's UUID but you do know the key and key offset, you can pass in "0" as the ID to the AugustLockDevice and it will try to use the key & offset provided on _any_ lock it finds. If you output the debug messages you should be able to see the device UUID which you can use in the future to prevent connecting to the wrong lock if you have multiple locks in range. Example:
+
 ## License
 
 [MIT](https://github.com/Marcus-L/xamarin-august-ble/blob/master/LICENSE)
