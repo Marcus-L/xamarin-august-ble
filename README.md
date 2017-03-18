@@ -65,7 +65,7 @@ The key and offset can be found in plist located at:
 User Applications/August/Library/Preferences/com.august.iossapp.plist
 ```
 
-This can be retrieved by using a file explorer like [http://www.i-funbox.com/ifunboxmac/](http://www.i-funbox.com/ifunboxmac/), and opening the plist in Xcode.
+This can be retrieved by using a file explorer like [iFunbox](http://www.i-funbox.com/en_download.html), and opening the plist in Xcode.
 
 ## Usage
 
@@ -91,7 +91,7 @@ private static async Task LockOrUnlock(string id, string key, int keyOffset)
 }
 
 // example invocation. NOTE: can pass in "0" for the ID if it is not known
-LockOrUnlock("a9fa1c721c1d", "eced208840ba35332c868d291c4162fb", 1);
+LockOrUnlock("CE781EAAEB94", "119FFA3E1AF914203303DBEDBC59F161", 1);
 ```
 
 If you want to see the debug output, hook up to the Debug EventHandler:
