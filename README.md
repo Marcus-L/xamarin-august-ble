@@ -33,6 +33,8 @@ The API operates using offline keys so that no access to the internet by the cal
 
 ### Unrooted Android
 
+**Update 12/1/17:** Looks like the app has now disabled backups via the "[android:allowBackup](https://developer.android.com/guide/topics/manifest/application-element.html#allowbackup)" manifest setting, so the procedure below no longer works. I'll leave it here for posterity (or if they re-enable backup in the future): 
+
 1. Same steps 1-3 as in the Rooted phone instructions
 1. Have linux tools available. An easy way to have them is to use Git Bash, part of Git. [Download Git](https://git-scm.com/downloads)
 1. Back up the app files, run: `adb backup -f backup.ab -noapk com.august.luna`
