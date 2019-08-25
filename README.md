@@ -61,6 +61,8 @@ The API operates using offline keys so that no access to the internet by the cal
 
 ### iOS
 
+**Update:** Looks like this no longer works, I'll leave it here for posterity: 
+
 The key and offset can be found in plist located at:
 
 ```
